@@ -48,7 +48,7 @@ class Test
             int width = 200;
             int height = 20;
             userInterface.WindowSize(width, height);
-
+             
             ConsoleColor textColor = ConsoleColor.Green;
             userInterface.ForegroundColor(ConsoleColor.Green);
 
