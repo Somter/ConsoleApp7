@@ -1,11 +1,14 @@
-﻿namespace ConsoleApp7
+﻿using System;
+using System.IO;
+using System.Text;
+
+namespace ConsoleApp7
 {
     class UserInterface
     {
-        public void BackroundColor(ConsoleColor color)
+        public void BackgroundColor(ConsoleColor color)
         {
             Console.BackgroundColor = color;
-            Console.Clear(); 
         }
 
         public void ForegroundColor(ConsoleColor color)
@@ -25,41 +28,47 @@
             }
         }
 
-        public void Title(string s)
+        public void Title(string title)
         {
-            Console.Title = s; 
-        }      
+            Console.Title = title;
+        }
 
-        public int ShoiseBackroundColor(string s)
+        public ConsoleColor ChooseColor(string prompt)
         {
-            int result = 0;
+            Console.WriteLine(prompt);
+            Console.WriteLine("Available colors: red, yellow, blue, white, magenta, green, cyan");
 
-            if (s == "red")
+            string s = Console.ReadLine().ToLower();
+            switch (s)
             {
-                result = 1;
+                case "red": return ConsoleColor.Red;
+                case "yellow": return ConsoleColor.Yellow;
+                case "blue": return ConsoleColor.Blue;
+                case "white": return ConsoleColor.White;
+                case "magenta": return ConsoleColor.Magenta;
+                case "green": return ConsoleColor.Green;
+                case "cyan": return ConsoleColor.Cyan;
+                default:
+                    Console.WriteLine("Invalid color, defaulting to black.");
+                    return ConsoleColor.Black;
             }
-            else if (s == "yellow")
-            {
-                result = 2;
-            }
-            else if (s == "blue")
-            {
-                result = 3;
-            }
-            else if (s == "white")
-            {
-                result = 4;
-            }
-            else if (s == "magenta")
-            {
-                result = 5;
-            }
-            else
-            {
-                result = 6; 
-            }
+        }
 
-            return result;
+        public (int, int) InputWindowSize()
+        {
+            Console.WriteLine("Enter window width:");
+            int width = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter window height:");
+            int height = int.Parse(Console.ReadLine());
+
+            return (width, height);
+        }
+
+        public string InputTitle()
+        {
+            Console.WriteLine("Enter the new window title:");
+            return Console.ReadLine();
         }
     }
 }

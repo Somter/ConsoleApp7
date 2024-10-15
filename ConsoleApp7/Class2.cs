@@ -4,14 +4,14 @@ namespace ConsoleApp7
 {
     class ApplicationSettingsHelper
     {
-        string BackroudColor;
+        string BackgroundColor;
         string TextColor;
         string WindowSize;
         string Title;
 
         public ApplicationSettingsHelper(ConsoleColor bg, ConsoleColor tc, int width, int height, string title)
         {
-            BackroudColor = bg.ToString();
+            BackgroundColor = bg.ToString();
             TextColor = tc.ToString();
             WindowSize = $"{width}x{height}";
             Title = title;
@@ -19,19 +19,28 @@ namespace ConsoleApp7
 
         public void WriteFile()
         {
-            string line = $"BackgroundColor: {BackroudColor}\nTextColor: {TextColor}\nWindowSize: {WindowSize}\nTitle: {Title}";
-        
-            StreamWriter sw = new StreamWriter("Console.txt", true, Encoding.Default);  
-            sw.WriteLine(line);
-            sw.Close();
-        }
+            string line = $"BackgroundColor: {BackgroundColor}\nTextColor: {TextColor}\nWindowSize: {WindowSize}\nTitle: {Title}";
 
-        public void ReadFile() 
+            using (StreamWriter sw = new StreamWriter("Console.txt", true, Encoding.Default))
+            {
+                sw.WriteLine(line);
+            }
+
+            Console.WriteLine("Settings have been saved to file.");
+        }
+         
+        public void ReadFile()
         {
-            StreamReader sr = new StreamReader("Console.txt", Encoding.Default);    
+          
+            StreamReader sr = new StreamReader("Console.txt", Encoding.Default);
             string line = sr.ReadToEnd();
+            Console.WriteLine("Settings loaded from file:");
             Console.WriteLine(line);
-            sr.Close();
+                
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey();
+          
         }
     }
+
 }
